@@ -12,4 +12,6 @@ version = "0.4.0"
 
 [dependencies]
 embedded-hal = "1"
+embedded-hal-async = "1"
+bisync = "0.3"
 defmt = { version = "0.3", optional = true }

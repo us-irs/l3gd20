@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add `temp_celcius` getter for `Measurement`
 - Add optional `defmt` support
 - I2C driver
+- `asynchronous` submodule which exposes an asynchronous API.
 
 ## [v0.3.0] - 2020-09-06
 
