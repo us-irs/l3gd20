@@ -6,12 +6,15 @@ authors = [
 edition = "2021"
 categories = ["embedded", "hardware-support", "no-std"]
 description = "A platform agnostic driver to interface the L3GD20 (gyroscope), forked"
-documentation = "https://docs.rs/l3gd20"
+documentation = "https://docs.rs/l3gd20-fork"
 keywords = ["embedded-hal-driver", "gyroscope", "MEMS", "l3gd20"]
 license = "MIT OR Apache-2.0"
 name = "l3gd20-fork"
 repository = "https://github.com/us-irs/l3gd20"
 version = "0.4.0"
+
+[lib]
+name = "l3gd20"
 
 [dependencies]
 embedded-hal = "1"

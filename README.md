@@ -1,7 +1,12 @@
+[![Crates.io](https://img.shields.io/crates/v/l3gd20-fork)](https://crates.io/crates/l3gd20-fork)
+[![docs.rs](https://img.shields.io/docsrs/l3gd20-fork)](https://docs.rs/l3gd20-fork)
+
 # `l3gd20`
 
 > A platform agnostic driver to interface with the L3GD20 and L3GD20H (gyroscope) which supports
 > both the I2C and SPI interface.
+
+This is a fork ([upstream](https://github.com/tstellanova/l3gd20)) which was also re-released to crates-io.
 
 ## Examples
 
