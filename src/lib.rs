@@ -10,7 +10,6 @@
 //!
 //! [f3]: https://docs.rs/f3/0.6
 
-#![deny(missing_docs)]
 #![deny(warnings)]
 #![no_std]
 
@@ -48,7 +47,7 @@ pub const WHO_AM_I_L3GD20: u8 = 0xD4;
 pub const WHO_AM_I_L3GD20H: u8 = 0xD7;
 
 /// Trait to represent a value that can be sent to sensor
-trait BitValue {
+pub trait BitValue {
     /// The width of the bitfield in bits
     fn width() -> u8;
     /// The bit 'mask' of the value
@@ -69,7 +68,7 @@ trait BitValue {
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Clone, Copy)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-enum Register {
+pub enum Register {
     WHO_AM_I = 0x0F,
     CTRL_REG1 = 0x20,
     CTRL_REG2 = 0x21,
