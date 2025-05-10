@@ -14,6 +14,31 @@
 #![deny(warnings)]
 #![no_std]
 
+#[path = "."]
+#[allow(clippy::duplicate_mod)]
+/// Asynchronous support.
+pub mod asynchronous {
+    use bisync::asynchronous::*;
+    /// I2C module.
+    pub mod i2c;
+    /// SPI module.
+    pub mod spi;
+}
+
+// here you could also add `#[cfg]` attributes to enable or disable this module
+#[path = "."]
+/// Blocking support.
+pub mod blocking {
+    use bisync::synchronous::*;
+    /// I2C module.
+    pub mod i2c;
+    /// SPI module.
+    pub mod spi;
+}
+
+/// Re-export the blocking module as the default.
+pub use blocking::*;
+
 /// Minimal time in nanoseconds between chip select assertion and clock edge.
 pub const MINIMUM_CS_SETUP_TIME_NS: u32 = 5;
 
@@ -21,11 +46,6 @@ pub const MINIMUM_CS_SETUP_TIME_NS: u32 = 5;
 pub const WHO_AM_I_L3GD20: u8 = 0xD4;
 /// Expected WHO_AM_I register value for the L3GD20H sensor.
 pub const WHO_AM_I_L3GD20H: u8 = 0xD7;
-
-/// I2C module.
-pub mod i2c;
-/// SPI module.
-pub mod spi;
 
 /// Trait to represent a value that can be sent to sensor
 trait BitValue {
