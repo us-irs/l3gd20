@@ -129,6 +129,11 @@ impl<Spi: SpiDevice> L3gd20<Spi> {
         Ok(Scale::from_u8(scl))
     }
 
+    /// Returns a mutable reference to the I2C peripheral used to drive this device.
+    pub fn spi(&mut self) -> &mut Spi {
+        &mut self.spi
+    }
+
     /// Set the Full Scale Selection
     ///
     /// This sets the sensitivity of the sensor, see `Scale` for more
@@ -139,7 +144,7 @@ impl<Spi: SpiDevice> L3gd20<Spi> {
     }
 
     #[bisync]
-    async fn read_register(&mut self, reg: Register) -> Result<u8, Spi::Error> {
+    pub async fn read_register(&mut self, reg: Register) -> Result<u8, Spi::Error> {
         let mut buffer = [reg.addr() | SINGLE | READ, 0];
         self.spi.transfer_in_place(&mut buffer).await?;
 
@@ -149,7 +154,7 @@ impl<Spi: SpiDevice> L3gd20<Spi> {
     /// Read multiple bytes starting from the `start_reg` register.
     /// This function will attempt to fill the provided buffer.
     #[bisync]
-    async fn read_many(
+    pub async fn read_many(
         &mut self,
         start_reg: Register,
         buffer: &mut [u8],
@@ -161,7 +166,7 @@ impl<Spi: SpiDevice> L3gd20<Spi> {
     }
 
     #[bisync]
-    async fn write_register(&mut self, reg: Register, byte: u8) -> Result<(), Spi::Error> {
+    pub async fn write_register(&mut self, reg: Register, byte: u8) -> Result<(), Spi::Error> {
         let buffer = [reg.addr() | SINGLE | WRITE, byte];
         self.spi.write(&buffer).await?;
 
@@ -175,7 +180,7 @@ impl<Spi: SpiDevice> L3gd20<Spi> {
     /// configuration. This allows the `L3gd20` struct to be used like
     /// a builder interface when configuring specific parameters.
     #[bisync]
-    async fn change_config<B: BitValue>(
+    pub async fn change_config<B: BitValue>(
         &mut self,
         reg: Register,
         bits: B,

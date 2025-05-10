@@ -27,6 +27,11 @@ pub enum I2cAddr {
 
 #[bisync]
 impl<I2cI: I2c> L3gd20<I2cI> {
+    /// Returns a mutable reference to the I2C peripheral used to drive this device.
+    pub fn i2c(&mut self) -> &mut I2cI {
+        &mut self.i2c
+    }
+
     /// Creates a new driver from a SPI peripheral and a NCS pin
     #[bisync]
     pub async fn new(i2c: I2cI, addr: I2cAddr) -> Result<Self, I2cI::Error> {
@@ -141,8 +146,9 @@ impl<I2cI: I2c> L3gd20<I2cI> {
         self.change_config(Register::CTRL_REG4, scale).await
     }
 
+    /// Read arbitrary register.
     #[bisync]
-    async fn read_register(&mut self, reg: Register) -> Result<u8, I2cI::Error> {
+    pub async fn read_register(&mut self, reg: Register) -> Result<u8, I2cI::Error> {
         let write = [reg.addr()];
         let mut read = [0u8; 1];
         self.i2c
@@ -154,7 +160,7 @@ impl<I2cI: I2c> L3gd20<I2cI> {
     /// Read multiple bytes starting from the `start_reg` register.
     /// This function will attempt to fill the provided buffer.
     #[bisync]
-    async fn read_many(
+    pub async fn read_many(
         &mut self,
         start_reg: Register,
         buffer: &mut [u8],
@@ -165,8 +171,9 @@ impl<I2cI: I2c> L3gd20<I2cI> {
         Ok(())
     }
 
+    /// Write arbitrary register.
     #[bisync]
-    async fn write_register(&mut self, reg: Register, byte: u8) -> Result<(), I2cI::Error> {
+    pub async fn write_register(&mut self, reg: Register, byte: u8) -> Result<(), I2cI::Error> {
         let buffer = [reg.addr(), byte];
         self.i2c.write(self.addr as u8, &buffer).await?;
 
@@ -180,7 +187,7 @@ impl<I2cI: I2c> L3gd20<I2cI> {
     /// configuration. This allows the `L3gd20` struct to be used like
     /// a builder interface when configuring specific parameters.
     #[bisync]
-    async fn change_config<B: BitValue>(
+    pub async fn change_config<B: BitValue>(
         &mut self,
         reg: Register,
         bits: B,
