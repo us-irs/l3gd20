@@ -1,13 +1,16 @@
 [package]
-authors = ["Jorge Aparicio <jorge@japaric.io>"]
+authors = [
+  "Jorge Aparicio <jorge@japaric.io>",
+  "Robin Mueller <muellerr@irs.uni-stuttgart.de>"
+]
 edition = "2021"
 categories = ["embedded", "hardware-support", "no-std"]
-description = "A platform agnostic driver to interface the L3GD20 (gyroscope)"
+description = "A platform agnostic driver to interface the L3GD20 (gyroscope), forked"
 documentation = "https://docs.rs/l3gd20"
 keywords = ["embedded-hal-driver", "gyroscope", "MEMS", "l3gd20"]
 license = "MIT OR Apache-2.0"
-name = "l3gd20"
-repository = "https://github.com/tstellanova/l3gd20"
+name = "l3gd20-fork"
+repository = "https://github.com/us-irs/l3gd20"
 version = "0.4.0"
 
 [dependencies]
